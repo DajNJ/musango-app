@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> - Musango Express</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .hero {
+      background-color: #003366;
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .cta-button {
+      background-color: #ffcc00;
+      color: #003366;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    .cta-button:hover {
+      background-color: #e6b800;
+    }
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    .feature-item {
+      flex: 1 1 calc(33.333% - 2rem);
+      padding: 1.5rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+    .feature-item h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #003366;
+    }
+    .feature-item p {
+      font-size: 1rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <img src="/images/logo.png" alt="Musango Express Logo" class="logo">
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/destinations">Destinations</a></li>
+          <li><a href="/contacts">Contacts</a></li>
+          <li><a href="/about">About Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="content">
+    <section class="hero">
+      <h1>Welcome to Musango Express</h1>
+      <p>Your reliable partner for transportation and mailing services across Cameroon.</p>
+      <a href="/destinations" class="cta-button">Book Your Trip</a>
+    </section>
+
+    <section class="features">
+      <div class="feature-item">
+        <h3>Transportation</h3>
+        <p>Reliable and comfortable transportation services across all regions of Cameroon.</p>
+      </div>
+      <div class="feature-item">
+        <h3>Mailing</h3>
+        <p>Fast, secure, and affordable mailing services to all major cities and towns.</p>
+      </div>
+      <div class="feature-item">
+        <h3>Online Reservations</h3>
+        <p>Book your tickets online with ease using our user-friendly platform.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Musango Express. All rights reserved.</p>
+  </footer>
+</body>
+</html>

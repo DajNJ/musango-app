@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Successful - Musango Express</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .receipt {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 20px;
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: left;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    .receipt h2 {
+      text-align: center;
+      color: #003366;
+      margin-bottom: 20px;
+    }
+    .receipt p {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    .receipt .details {
+      margin-top: 20px;
+      border-top: 1px dashed #ccc;
+      padding-top: 15px;
+    }
+    .receipt .details p {
+      font-size: 14px;
+      color: #555;
+    }
+    .receipt .details strong {
+      color: #003366;
+    }
+    .receipt .thank-you {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+      color: #003366;
+    }
+    .receipt .actions {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .receipt .actions a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #003366;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    .receipt .actions a:hover {
+      background-color: #ffcc00;
+      color: #003366;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <img src="/images/logo.png" alt="Musango Express Logo" class="logo">
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/destinations">Destinations</a></li>
+          <li><a href="/contacts">Contacts</a></li>
+          <li><a href="/about">About Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="receipt">
+      <h2>Booking Successful!</h2>
+      <p>Thank you for booking with Musango Express. Here are your ticket details:</p>
+      <div class="details">
+        <p><strong>Receipt Number:</strong> <%= booking.receiptNumber %></p>
+        <p><strong>Destination:</strong> <%= booking.destination %></p>
+        <p><strong>Name:</strong> <%= booking.name %></p>
+        <p><strong>Age:</strong> <%= booking.age %></p>
+        <p><strong>Contact:</strong> <%= booking.contact %></p>
+        <p><strong>Date:</strong> <%= booking.date.toLocaleDateString() %></p>
+        <p><strong>Time:</strong> <%= booking.time %></p>
+        <p><strong>Bus Serial:</strong> <%= booking.busSerial %></p>
+        <p><strong>Price:</strong> 10,000 XAF</p>
+      </div>
+      <p class="thank-you">We wish you a safe and enjoyable journey!</p>
+      <div class="actions">
+        <a href="/">Return to Home</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Musango Express. All rights reserved.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Confirmation - Musango Express</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .confirmation-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .confirmation-container h1 {
+      color: #003366;
+    }
+    .confirmation-container p {
+      font-size: 16px;
+      margin: 10px 0;
+    }
+    .confirmation-container .details {
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px dashed #ccc;
+    }
+    .btn-home {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #003366;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <img src="/images/logo.png" alt="Musango Express Logo" class="logo">
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/destinations">Destinations</a></li>
+          <li><a href="/contacts">Contacts</a></li>
+          <li><a href="/about">About Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="confirmation-container">
+      <h1>Booking Successful!</h1>
+      <p>Thank you for booking with <strong>Musango Express</strong>. Below are your booking details:</p>
+      <div class="details">
+        <p><strong>Receipt Number:</strong> <%= booking.receiptNumber %></p>
+        <p><strong>Passenger Name:</strong> <%= booking.name %></p>
+        <p><strong>Age:</strong> <%= booking.age %></p>
+        <p><strong>Contact:</strong> <%= booking.contact %></p>
+        <p><strong>Destination:</strong> <%= booking.destination %></p>
+        <p><strong>Date:</strong> <%= booking.date %></p>
+        <p><strong>Time:</strong> <%= booking.time %></p>
+        <p><strong>Bus Serial:</strong> <%= booking.busSerial %></p>
+        <p><strong>Price:</strong> 10,000 XAF</p>
+      </div>
+      <a href="/" class="btn-home">Go to Home</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Musango Express. All rights reserved.</p>
+  </footer>
+</body>
+</html>
