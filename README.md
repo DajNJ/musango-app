@@ -1,6 +1,3 @@
-
----
-
 ## **Musango Express Ticket Management App**
 
 ### **Overview**
@@ -12,59 +9,86 @@ Musango Express is a web-based ticket booking application that allows users to b
 
 ---
 
-## **Prerequisites**
-Before running the app, ensure you have the following installed:
-1. **Docker**
-2. **Docker Compose** (optional, for simplified deployment)
+## **Running the App Locally on Ubuntu EC2 (Without Docker)**
 
----
+### **1. SSH into your EC2 instance**
+```bash
+ssh -i your-key.pem ubuntu@your-ec2-public-ip
+```
 
-## **Steps to Run the App**
+### **2. Install Node.js and npm**
+```bash
+sudo apt update
+sudo apt install nodejs npm -y
+```
 
-### **1. Clone the Repository**
-Clone the repository to your local machine:
+### **3. Install Docker (for MongoDB container)**
+```bash
+sudo apt install docker.io -y
+sudo systemctl start docker
+sudo systemctl enable docker
+```
+
+### **4. Clone the Repository**
 ```bash
 git clone https://github.com/HILL-TOPCONSULTANCY/musango-app.git
 cd musango-app
 ```
 
----
-
-### **2. Set Up Environment Variables**
-Create a `.env` file in the root directory and add the following:
+### **5. Set Up Environment Variables**
+A `.env` file already exists in the project with:
 ```env
-MONGO_URI=mongodb://mongodb:27017/musango-express
+MONGO_URI=mongodb://localhost:27017/musango-express
 PORT=8080
+```
+Ensure the MONGO_URI value matches the MongoDB container hostname (`localhost` when using local Docker).
+
+### **6. Run MongoDB as a Docker Container**
+```bash
+sudo docker run -d --name mongodb -p 27017:27017 -e MONGO_INITDB_DATABASE=musango-express mongo:6
+```
+## Test Database Connection
+```bash
+node test-db.js
+```
+### **7. Install Dependencies and Start the App**
+```bash
+npm install
+```
+## Run Test
+```bash
+npm test
+```
+## Deploy Application
+```bash
+npm run
+```
+### **8. Access the App**
+Open your browser and visit:
+```
+http://localhost:8080
 ```
 
 ---
 
-### **3. Build the Docker Image**
-Build the Docker image for the Musango Express app:
+## **Running the App with Docker**
+
+### **1. Build the Docker Image**
 ```bash
 docker build -t musango .
 ```
 
----
-
-### **4. Run MongoDB in a Docker Container**
-Run MongoDB in a Docker container:
+### **2. Run MongoDB in Docker**
 ```bash
-docker run -d --name mongodb -p 27017:27017 mongo:latest
+docker run -d --name mongodb -p 27017:27017 -e MONGO_INITDB_DATABASE=musango-express mongo:6
 ```
 
----
-
-### **5. Run the Musango Express App**
-Run the Musango Express app container and link it to the MongoDB container:
+### **3. Run Musango Express App**
 ```bash
 docker run -d -p 8080:8080 --link mongodb:mongodb -e MONGO_URI=mongodb://mongodb:27017/musango-express musango
 ```
 
----
-
-### **6. Access the App**
-Open your browser and navigate to:
+### **4. Access the App**
 ```
 http://localhost:8080
 ```
@@ -73,20 +97,14 @@ http://localhost:8080
 
 ## **Deploying on Kubernetes**
 
-If you want to deploy the app and MongoDB on Kubernetes, follow these steps:
-
----
-
 ### **1. Prerequisites**
-- A running Kubernetes cluster (EKS)
+- A running Kubernetes cluster (EKS, Minikube, etc.)
 - `kubectl` installed and configured
-
----
 
 ### **2. Create Kubernetes Deployment and Service Files**
 
 #### **MongoDB Deployment and Service**
-Create a file named `mongo-deployment.yaml`:
+Create `mongo-deployment.yaml`:
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -104,7 +122,7 @@ spec:
     spec:
       containers:
       - name: mongodb
-        image: mongo:latest
+        image: mongo:6
         ports:
         - containerPort: 27017
         env:
@@ -125,7 +143,7 @@ spec:
 ```
 
 #### **Musango Express Deployment and Service**
-Create a file named `musango-deployment.yaml`:
+Create `musango-deployment.yaml`:
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -167,26 +185,18 @@ spec:
       nodePort: 30000
 ```
 
----
-
 ### **3. Deploy to Kubernetes**
-1. Apply the MongoDB deployment and service:
-   ```bash
-   kubectl apply -f mongo-deployment.yaml
-   ```
-2. Apply the Musango Express deployment and service:
-   ```bash
-   kubectl apply -f musango-deployment.yaml
-   ```
-
----
+```bash
+kubectl apply -f mongo-deployment.yaml
+kubectl apply -f musango-deployment.yaml
+```
 
 ### **4. Access the App**
-1. Get the IP address of your Kubernetes cluster:
-   - For cloud providers (e.g., GKE, EKS, AKS), use the external IP of the cluster.
-2. Access the app using the NodePort:
-   ```
-   http://<cluster-ip>:30000
-   ```
+Visit:
+```
+http://<your-cluster-node-ip>:30000
+```
 
 ---
+
+### ✅ You're now ready to use Musango Express!

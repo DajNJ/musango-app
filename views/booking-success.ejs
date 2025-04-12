@@ -89,7 +89,11 @@
         <p><strong>Name:</strong> <%= booking.name %></p>
         <p><strong>Age:</strong> <%= booking.age %></p>
         <p><strong>Contact:</strong> <%= booking.contact %></p>
-        <p><strong>Date:</strong> <%= booking.date.toLocaleDateString() %></p>
+        <p><strong>Date:</strong> 
+          <%= (booking.date instanceof Date && !isNaN(booking.date)) 
+                ? booking.date.toLocaleDateString() 
+                : new Date(booking.date).toLocaleDateString() %>
+        </p>
         <p><strong>Time:</strong> <%= booking.time %></p>
         <p><strong>Bus Serial:</strong> <%= booking.busSerial %></p>
         <p><strong>Price:</strong> 10,000 XAF</p>

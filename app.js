@@ -1,36 +1,50 @@
+// app.js
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 
-// Load environment variables
 dotenv.config();
-
-// Initialize Express app
-const app = express();
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/musango-express';
 const PORT = process.env.PORT || 8080;
 
-// MongoDB connection
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
+function createServer() {
+  const app = express();
 
-// Middleware
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
-app.use(express.json()); // Parse JSON bodies
-app.use(express.static(path.join(__dirname, 'public'))); // Serve static files
-app.use(morgan('dev')); // Logging
+  // Middleware
+  app.use(express.urlencoded({ extended: true }));
+  app.use(express.json());
+  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(morgan('dev'));
 
-// Set view engine to EJS
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+  // View engine
+  app.set('view engine', 'ejs');
+  app.set('views', path.join(__dirname, 'views'));
 
-// Routes
-app.use('/', require('./routes/index')); // Main routes
-app.use('/', require('./routes/booking')); // Booking routes
+  // Routes
+  app.use('/', require('./routes/index'));
+  app.use('/', require('./routes/booking'));
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+  // Health check
+  app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok', env: process.env.NODE_ENV || 'dev' });
+  });
+
+  return app;
+}
+
+if (require.main === module) {
+  mongoose.connect(MONGO_URI).then(() => {
+    console.log('Connected to MongoDB');
+    const app = createServer();
+    app.listen(PORT, () => {
+      console.log(`🚀 Musango App is running at http://localhost:${PORT}`);
+    });
+  }).catch(err => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);
+  });
+}
+
+module.exports = { createServer };
