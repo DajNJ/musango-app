@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     MONGO_URI = "mongodb://localhost:27017/musango-express"
-    DOCKER_IMAGE = "your-dockerhub-username/musango-app"
+    DOCKER_IMAGE = "hilltopconsultancy/musango"
     DOCKER_CREDENTIALS_ID = "dockerhub-creds" // Jenkins credentials ID
   }
 
