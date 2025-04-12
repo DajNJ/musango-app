@@ -6,6 +6,7 @@ Musango Express is a web-based ticket booking application that allows users to b
 - **Frontend**: EJS (Embedded JavaScript templates)
 - **Database**: MongoDB
 - **Containerization**: Docker
+![Musango App](Capture.PNG)
 
 ---
 
