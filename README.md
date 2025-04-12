@@ -13,7 +13,7 @@ Musango Express is a web-based ticket booking application that allows users to b
 
 ### **1. SSH into your EC2 instance**
 ```bash
-ssh -i your-key.pem ubuntu@your-ec2-public-ip
+ssh -i key.pem ubuntu@your-ec2-public-ip
 ```
 
 ### **2. Install Node.js and npm**
@@ -35,12 +35,6 @@ git clone https://github.com/HILL-TOPCONSULTANCY/musango-app.git
 cd musango-app
 ```
 
-### **5. Set Up Environment Variables**
-A `.env` file already exists in the project with:
-```env
-MONGO_URI=mongodb://localhost:27017/musango-express
-PORT=8080
-```
 Ensure the MONGO_URI value matches the MongoDB container hostname (`localhost` when using local Docker).
 
 ### **6. Run MongoDB as a Docker Container**
@@ -61,7 +55,7 @@ npm test
 ```
 ## Deploy Application
 ```bash
-npm run
+npm start
 ```
 ### **8. Access the App**
 Open your browser and visit:

@@ -35,6 +35,7 @@ function createServer() {
 }
 
 if (require.main === module) {
+  mongoose.set('strictQuery', false);
   mongoose.connect(MONGO_URI).then(() => {
     console.log('Connected to MongoDB');
     const app = createServer();

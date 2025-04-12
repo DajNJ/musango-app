@@ -14,14 +14,23 @@
       border-radius: 10px;
       margin-bottom: 2rem;
     }
+  
     .hero h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      color: white !important;
     }
+  
     .hero p {
-      font-size: 1.25rem;
+      font-size: 2rem;
+      line-height: 2;
+      color: white !important;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
       margin-bottom: 2rem;
     }
+  
     .cta-button {
       background-color: #ffcc00;
       color: #003366;
@@ -29,12 +38,14 @@
       border: none;
       border-radius: 4px;
       text-decoration: none;
-      font-size: 1rem;
+      font-size: 1.25rem;
       transition: background-color 0.3s ease;
     }
+  
     .cta-button:hover {
       background-color: #e6b800;
     }
+  
     .features {
       display: flex;
       flex-wrap: wrap;
@@ -42,6 +53,7 @@
       justify-content: center;
       margin: 2rem 0;
     }
+  
     .feature-item {
       flex: 1 1 calc(33.333% - 2rem);
       padding: 1.5rem;
@@ -50,16 +62,32 @@
       background-color: #f9f9f9;
       text-align: center;
     }
+  
     .feature-item h3 {
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       margin-bottom: 1rem;
       color: #003366;
     }
+  
     .feature-item p {
-      font-size: 1rem;
+      font-size: 1.1rem;
       color: #333;
     }
-  </style>
+  
+    @media (max-width: 768px) {
+      .feature-item {
+        flex: 1 1 100%;
+      }
+  
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+  
+      .hero p {
+        font-size: 1.5rem;
+      }
+    }
+  </style>     
 </head>
 <body>
   <header>
@@ -79,29 +107,34 @@
 
   <main class="content">
     <section class="hero">
-      <h1>Welcome to Musango Express</h1>
-      <p>Your reliable partner for transportation and mailing services across Cameroon.</p>
+      <h1>Welcome to Musango Express by Hill-Top Consultancy</h1>
+      <p>
+        Your reliable partner for safe, affordable, and efficient transportation and mailing services across Cameroon.
+        We connect people and businesses with speed, comfort, and reliability. Whether you're booking a trip or sending a parcel,
+        trust Musango Express for dependable service every time.
+        Hosted at Hoje Taastrup - Denmark
+      </p>
       <a href="/destinations" class="cta-button">Book Your Trip</a>
     </section>
 
     <section class="features">
       <div class="feature-item">
         <h3>Transportation</h3>
-        <p>Reliable and comfortable transportation services across all regions of Cameroon.</p>
+        <p>Reliable and comfortable transportation services across all regions of Cameroon. Modern fleet, experienced drivers, and safe travel guaranteed.</p>
       </div>
       <div class="feature-item">
         <h3>Mailing</h3>
-        <p>Fast, secure, and affordable mailing services to all major cities and towns.</p>
+        <p>Fast, secure, and affordable mailing services to all major cities and towns. Send and receive parcels with confidence.</p>
       </div>
       <div class="feature-item">
         <h3>Online Reservations</h3>
-        <p>Book your tickets online with ease using our user-friendly platform.</p>
+        <p>Book your tickets online with ease using our user-friendly platform. Available 24/7 to serve you better.</p>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2023 Musango Express. All rights reserved.</p>
+    <p>&copy; <%= new Date().getFullYear() %> Musango Express. All rights reserved.</p>
   </footer>
 </body>
 </html>
