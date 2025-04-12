@@ -1,0 +1,83 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5.0.2
+  docker: circleci/docker@2.4.0
+
+executors:
+  node-executor:
+    docker:
+      - image: cimg/node:18.16
+      - image: mongo:6.0
+    working_directory: ~/musango-app
+
+jobs:
+  install:
+    executor: node-executor
+    steps:
+      - checkout
+      - run: npm install
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+
+  test:
+    executor: node-executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Wait for MongoDB to be ready
+          command: |
+            dockerize -wait tcp://localhost:27017 -timeout 30s
+      - run:
+          name: Run Tests
+          command: |
+            export MONGO_URI="mongodb://localhost:27017/musango-express"
+            npm test
+
+  run_app:
+    executor: node-executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run App Locally
+          command: |
+            export MONGO_URI="mongodb://localhost:27017/musango-express"
+            node app.js &
+            sleep 10
+            curl --fail http://localhost:8080/health || exit 1
+
+  build_and_push:
+    docker:
+      - image: cimg/node:18.16
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Docker Image
+          command: docker build -t your-dockerhub-username/musango-app .
+      - run:
+          name: Push Docker Image
+          command: |
+            echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
+            docker push your-dockerhub-username/musango-app
+
+workflows:
+  version: 2
+  musango_ci_pipeline:
+    jobs:
+      - install
+      - test:
+          requires:
+            - install
+      - run_app:
+          requires:
+            - test
+      - build_and_push:
+          requires:
+            - run_app
