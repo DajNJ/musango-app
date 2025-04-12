@@ -36,13 +36,13 @@ git clone https://github.com/HILL-TOPCONSULTANCY/musango-app.git
 cd musango-app
 ```
 
-Ensure the MONGO_URI value matches the MongoDB container hostname (`localhost` when using local Docker).
+- Ensure the MONGO_URI value matches the MongoDB container hostname (`localhost` when using local Docker).
 
-### **6. Run MongoDB as a Docker Container**
+### **5. Run MongoDB as a Docker Container**
 ```bash
 sudo docker run -d --name mongodb -p 27017:27017 -e MONGO_INITDB_DATABASE=musango-express mongo:6
 ```
-## Test Database Connection
+### **6. Test Database Connection
 ```bash
 node test-db.js
 ```
@@ -50,7 +50,7 @@ node test-db.js
 ```bash
 npm install
 ```
-## Run Test
+### Run Test
 ```bash
 npm test
 ```
