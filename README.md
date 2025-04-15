@@ -10,7 +10,7 @@ Musango Express is a web-based ticket booking application that allows users to b
 
 ---
 
-## **Running the App Locally on Ubuntu EC2 (Without Docker)**
+## **Running the App Locally on Ubuntu EC2**
 - Launch an Ubuntu Instance of size t2.medium
 - Open port 8080, 22, 80
 
@@ -19,7 +19,7 @@ Musango Express is a web-based ticket booking application that allows users to b
 ssh -i key.pem ubuntu@your-ec2-public-ip
 ```
 
-### **2. Install Node.js and npm**
+### **2. Install Node.js and npm Command Utility**
 ```bash
 sudo apt update
 sudo apt install nodejs npm -y
