@@ -1,8 +1,10 @@
-// routes/booking.js
-
 const express = require('express');
 const router = express.Router();
 const Booking = require('../models/booking');
+const { generateReceiptPDF } = require('../utils/pdfGenerator');
+const sendEmailWithPDF = require('../utils/mailer');
+const fs = require('fs');
+const path = require('path');
 
 // Render booking form
 router.get('/booking', (req, res) => {
@@ -12,7 +14,7 @@ router.get('/booking', (req, res) => {
   }
 
   res.render('booking-form', {
-    destination: destination || '',
+    destination,
     error: null,
     formData: {}
   });
@@ -20,26 +22,26 @@ router.get('/booking', (req, res) => {
 
 // Handle booking form submission
 router.post('/book', async (req, res) => {
-  console.log('📥 Form submission body:', req.body); // Debug line
+  console.log('📥 Form submission body:', req.body);
 
-  const { destination, name, age, contact, date, time, busSerial } = req.body;
+  const { destination, name, age, contact, email, date, time, busSerial } = req.body;
 
-  const formData = {
-    name: name || '',
-    age: age || '',
-    contact: contact || '',
-    date: date || '',
-    time: time || '',
-    busSerial: busSerial || ''
-  };
-
+  const formData = { name, age, contact, email, date, time, busSerial };
   const safeDestination = destination || '';
 
-  // Input validation
-  if (!destination || !name || !age || !contact || !date || !time || !busSerial) {
+  // Basic validation
+  if (!destination || !name || !age || !contact || !email || !date || !time || !busSerial) {
     return res.status(400).render('booking-form', {
       destination: safeDestination,
       error: 'All fields are required.',
+      formData
+    });
+  }
+
+  if (!email.endsWith('@gmail.com')) {
+    return res.status(400).render('booking-form', {
+      destination: safeDestination,
+      error: 'Only Gmail addresses are accepted.',
       formData
     });
   }
@@ -68,6 +70,7 @@ router.post('/book', async (req, res) => {
       name,
       age,
       contact,
+      email,
       date,
       time,
       busSerial,
@@ -75,9 +78,31 @@ router.post('/book', async (req, res) => {
     });
 
     await booking.save();
+
+    // Generate receipt PDF
+    const pdfBuffer = await generateReceiptPDF(booking);
+
+    // Save locally for download
+    const receiptsDir = path.join(__dirname, '..', 'public', 'receipts');
+    if (!fs.existsSync(receiptsDir)) {
+      fs.mkdirSync(receiptsDir, { recursive: true });
+    }
+
+    const pdfPath = path.join(receiptsDir, `${receiptNumber}.pdf`);
+    fs.writeFileSync(pdfPath, pdfBuffer);
+
+    // Send email to client only (skip in test environment)
+    if (process.env.NODE_ENV !== 'test') {
+      console.log(`📤 Sending receipt to user: ${email}`);
+      await sendEmailWithPDF(email, pdfBuffer, booking);
+    }
+
+    // Show success page with download option
     res.render('booking-success', { booking });
+
   } catch (err) {
     console.error('Booking error:', err);
+
     if (err.code === 11000) {
       return res.status(400).render('booking-form', {
         destination: safeDestination,

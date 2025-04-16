@@ -49,6 +49,7 @@ node test-db.js
 ### **7. Install Dependencies and Start the App**
 ```bash
 npm install
+npm install puppeteer ejs nodemailer
 ```
 ### Run Test
 ```bash
@@ -56,7 +57,7 @@ npm test
 ```
 ## Deploy Application
 ```bash
-npm start
+npm run start
 ```
 ### **8. Access the App**
 Open your browser and visit:
