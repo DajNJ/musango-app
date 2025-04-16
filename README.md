@@ -10,14 +10,16 @@ Musango Express is a web-based ticket booking application that allows users to b
 
 ---
 
-## **Running the App Locally on Ubuntu EC2 (Without Docker)**
+## **Running the App Locally on Ubuntu EC2**
+- Launch an Ubuntu Instance of size t2.medium
+- Open port 8080, 22, 80
 
 ### **1. SSH into your EC2 instance**
 ```bash
 ssh -i key.pem ubuntu@your-ec2-public-ip
 ```
 
-### **2. Install Node.js and npm**
+### **2. Install Node.js and npm Command Utility**
 ```bash
 sudo apt update
 sudo apt install nodejs npm -y
@@ -35,21 +37,25 @@ sudo systemctl enable docker
 git clone https://github.com/HILL-TOPCONSULTANCY/musango-app.git
 cd musango-app
 ```
-
-- Ensure the MONGO_URI value matches the MongoDB container hostname (`localhost` when using local Docker).
+- ### Add docker user to sudo
+```bash
+sudo usermod -aG docker ubuntu
+newgrp docker
+```
 
 ### **5. Run MongoDB as a Docker Container**
 ```bash
 sudo docker run -d --name mongodb -p 27017:27017 -e MONGO_INITDB_DATABASE=musango-express mongo:6
 ```
-### **6. Test Database Connection
-```bash
-node test-db.js
-```
-### **7. Install Dependencies and Start the App**
+
+### **6. Install Dependencies and Start the App**
 ```bash
 npm install
 npm install puppeteer ejs nodemailer
+```
+### **7. Test Database Connection
+```bash
+node test-db.js
 ```
 ### Run Test
 ```bash
@@ -60,9 +66,9 @@ npm test
 npm run start
 ```
 ### **8. Access the App**
-Open your browser and visit:
+Copy the Public IPV4 of your instance and Open your browser and visit:
 ```
-http://localhost:8080
+http://<PublicIP>:8080
 ```
 
 ---
