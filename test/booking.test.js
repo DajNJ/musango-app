@@ -105,6 +105,10 @@ describe('Booking Routes', () => {
     // Extract receipt number from response HTML
     const match = res.text.match(/Receipt Number:<\/strong>\s*(REC-\d{6})/);
     expect(match).not.toBeNull();
+    const browser = await puppeteer.launch({
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
+    
 
     const receiptNumber = match[1];
     const receiptPath = path.join(__dirname, '..', 'public', 'receipts', `${receiptNumber}.pdf`);

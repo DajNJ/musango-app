@@ -17,8 +17,12 @@ async function generateReceiptPDF(booking) {
     logoDataURI
   });
 
-  // Launch Puppeteer and create PDF
-  const browser = await puppeteer.launch({ headless: 'new' });
+  // Launch Puppeteer with --no-sandbox flag to avoid sandbox issues
+  const browser = await puppeteer.launch({
+    headless: true,  // Use headless mode for production
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],  // Add these arguments to bypass sandboxing
+  });
+
   const page = await browser.newPage();
   await page.setContent(html, { waitUntil: 'networkidle0' });
 
