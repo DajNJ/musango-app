@@ -21,8 +21,10 @@ ssh -i key.pem ubuntu@your-ec2-public-ip
 
 ### **2. Install Node.js and npm Command Utility**
 ```bash
-sudo apt update
+sudo apt-get update
 sudo apt install nodejs npm -y
+sudo apt-get install -y libatk1.0-0 libatk-bridge2.0-0 libcups2 libnspr4 libnss3 libgdk-pixbuf2.0-0 libx11-xcb1 libxcomposite1 libxdamage1 libxrandr2 fonts-liberation
+
 ```
 
 ### **3. Install Docker (for MongoDB container)**
@@ -52,6 +54,8 @@ sudo docker run -d --name mongodb -p 27017:27017 -e MONGO_INITDB_DATABASE=musang
 ```bash
 npm install
 npm install puppeteer ejs nodemailer
+export PUPPETEER_EXECUTABLE_PATH="/usr/bin/chromium-browser"
+sudo apt install chromium-browser
 ```
 ### **7. Test Database Connection
 ```bash
