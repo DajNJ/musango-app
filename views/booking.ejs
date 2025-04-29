@@ -1,81 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Booking Confirmation - Musango Express</title>
-  <link rel="stylesheet" href="/css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking Confirmation - Hill-Top Consultancy</title>
+  <link rel="stylesheet" href="/css/styles.css"/>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background-color: #003366;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+    }
     .confirmation-container {
-      max-width: 500px;
-      margin: 0 auto;
-      padding: 20px;
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 30px;
       background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .header-logo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .header-logo img {
+      height: 80px;
+    }
+    .company-info {
+      text-align: right;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    h1 {
+      color: #003366;
       text-align: center;
     }
-    .confirmation-container h1 {
-      color: #003366;
-    }
-    .confirmation-container p {
-      font-size: 16px;
-      margin: 10px 0;
-    }
-    .confirmation-container .details {
+    .details {
       margin-top: 20px;
-      padding-top: 10px;
       border-top: 1px dashed #ccc;
+      padding-top: 20px;
+    }
+    .details p {
+      margin: 6px 0;
+      font-size: 16px;
+    }
+    .price-section {
+      margin-top: 20px;
+      font-size: 16px;
     }
     .btn-home {
       display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
+      margin-top: 30px;
+      padding: 10px 25px;
       background: #003366;
-      color: white;
+      color: #fff;
       text-decoration: none;
       border-radius: 5px;
+    }
+    footer p {
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 5px 0;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <div class="container">
-      <img src="/images/logo.png" alt="Musango Express Logo" class="logo">
-      <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/services">Services</a></li>
-          <li><a href="/destinations">Destinations</a></li>
-          <li><a href="/contacts">Contacts</a></li>
-          <li><a href="/about">About Us</a></li>
-        </ul>
-      </nav>
-    </div>
+    <h2>Hill-Top Consultancy - Musango Express</h2>
   </header>
 
-  <main class="content">
-    <div class="confirmation-container">
-      <h1>Booking Successful!</h1>
-      <p>Thank you for booking with <strong>Musango Express</strong>. Below are your booking details:</p>
-      <div class="details">
-        <p><strong>Receipt Number:</strong> <%= booking.receiptNumber %></p>
-        <p><strong>Passenger Name:</strong> <%= booking.name %></p>
-        <p><strong>Age:</strong> <%= booking.age %></p>
-        <p><strong>Contact:</strong> <%= booking.contact %></p>
-        <p><strong>Destination:</strong> <%= booking.destination %></p>
-        <p><strong>Date:</strong> <%= booking.date %></p>
-        <p><strong>Time:</strong> <%= booking.time %></p>
-        <p><strong>Bus Serial:</strong> <%= booking.busSerial %></p>
-        <p><strong>Price:</strong> 10,000 XAF</p>
+  <main class="confirmation-container">
+    <div class="header-logo">
+      <img src="/images/logo.png" alt="Hill-Top Logo" />
+      <div class="company-info">
+        <strong>Hill-Top Consultancy</strong><br/>
+        CVR: 44814544<br/>
+        Sylen 3, 2. 0525, 2630 Taastrup<br/>
+        Høje-Taastrup, Denmark<br/>
+        Email: info@htconsult.dk<br/>
+        Phone: 71 57 30 47<br/>
+        Website: www.htconsult.dk
       </div>
-      <a href="/" class="btn-home">Go to Home</a>
     </div>
+
+    <h1>Booking Confirmation</h1>
+    <p>Thank you for choosing Hill-Top Consultancy's Musango Express service. Below are your booking details:</p>
+
+    <div class="details">
+      <p><strong>Receipt Number:</strong> <%= booking.receiptNumber %></p>
+      <p><strong>Passenger Name:</strong> <%= booking.name %></p>
+      <p><strong>Age:</strong> <%= booking.age %></p>
+      <p><strong>Contact:</strong> <%= booking.contact %></p>
+      <p><strong>Email:</strong> <%= booking.email %></p>
+      <p><strong>Trip From:</strong> <%= booking.from %></p>
+      <p><strong>Destination:</strong> <%= booking.destination %></p>
+      <p><strong>Date:</strong> <%= booking.date %></p>
+      <p><strong>Time:</strong> <%= booking.time %></p>
+      <p><strong>Bus Serial:</strong> <%= booking.busSerial %></p>
+    </div>
+
+    <div class="price-section">
+      <p><strong>Base Price:</strong> 10,000 XAF</p>
+      <p><strong>Tax (24%):</strong> 2,400 XAF</p>
+      <p><strong>Total:</strong> 12,400 XAF</p>
+    </div>
+
+    <a href="/" class="btn-home">Return to Homepage</a>
   </main>
 
   <footer>
-    <p>&copy; 2023 Musango Express. All rights reserved.</p>
+    <p>&copy; <%= new Date().getFullYear() %> Hill-Top Consultancy - All Rights Reserved.</p>
+    <p>Consulting services in IT & Management | ENK Sole Proprietorship</p>
+    <p>Fully Responsible: Forchu Sani Prince Chafah</p>
   </footer>
+
 </body>
 </html>
